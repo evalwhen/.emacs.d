@@ -1060,13 +1060,15 @@ _d_: date        ^ ^              ^ ^
 (setq-default indent-tabs-mode nil)
 
 (use-package restclient)
+
+(use-package elpa-mirror)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(git-gutter-fringe ws-butler which-key vterm visual-fill-column use-package typescript-mode smartparens restclient rainbow-mode rainbow-delimiters pyvenv python-mode prettier-js org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-mode git-gutter general forge flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse deft dap-mode counsel-projectile company-box command-log-mode auto-package-update apheleia all-the-icons-dired)))
+   '(elpa-mirror ws-butler which-key vterm visual-fill-column use-package typescript-mode smartparens restclient rainbow-mode rainbow-delimiters pyvenv python-mode prettier-js org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-mode git-gutter-fringe general forge flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse deft dap-mode counsel-projectile company-box command-log-mode auto-package-update apheleia all-the-icons-dired)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

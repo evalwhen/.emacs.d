@@ -1691,3 +1691,11 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 
   (use-package restclient)
 #+end_src
+
+* Elpa-mirror
+
+#+begin_src emacs-lisp
+
+  (use-package elpa-mirror)
+
+#+end_src
