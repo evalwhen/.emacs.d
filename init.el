@@ -71,7 +71,8 @@
   (load bootstrap-file nil 'nomessage))
 
 ;; Always use straight to install on systems other than Linux
-(setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
+;; (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
+(setq straight-use-package-by-default t)
 
 ;; Use straight.el for use-package expressions
 (straight-use-package 'use-package)
