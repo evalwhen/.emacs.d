@@ -1,0 +1,3 @@
+[submodule "straight/repos/restclient.el"]
+	path = straight/repos/restclient.el
+	url = https://github.com/pashky/restclient.el.git

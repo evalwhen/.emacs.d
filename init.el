@@ -1058,3 +1058,5 @@ _d_: date        ^ ^              ^ ^
 (setq-default evil-shift-width tab-width)
 
 (setq-default indent-tabs-mode nil)
+
+(use-package restclient)

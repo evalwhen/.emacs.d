@@ -1684,3 +1684,10 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
   (setq-default indent-tabs-mode nil)
 
 #+end_src
+
+* Restclient
+
+#+begin_src emacs-lisp
+
+  (use-package restclient)
+#+end_src
