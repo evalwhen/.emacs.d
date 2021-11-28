@@ -558,6 +558,8 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(add-hook 'after-init-hook 'global-company-mode)
+
 (defun dw/switch-project-action ()
   "Switch to a workspace with the project name and start `magit-status'."
   ;; TODO: Switch to EXWM workspace 1?
@@ -1064,10 +1066,12 @@ _d_: date        ^ ^              ^ ^
   :hook (lsp-mode . flycheck-mode))
 
 (use-package smartparens
-  :hook (prog-mode . smartparens-mode))
+  :hook ((prog-mode . smartparens-mode)
+         (gerbil-mode . smartparens-mode)))
 
 (use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook ((prog-mode . rainbow-delimiters-mode)
+         (gerbil-mode . rainbow-delimiters-mode)))
 
 (use-package rainbow-mode
   :defer t

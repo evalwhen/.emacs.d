@@ -882,6 +882,7 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
   (use-package company-box
     :hook (company-mode . company-box-mode))
 
+  (add-hook 'after-init-hook 'global-company-mode)
 #+end_src
 
 ** Projectile
@@ -1663,7 +1664,8 @@ Here are packages that are useful across different Lisp and Scheme implementatio
 
 #+begin_src emacs-lisp
   (use-package smartparens
-    :hook (prog-mode . smartparens-mode))
+    :hook ((prog-mode . smartparens-mode)
+           (gerbil-mode . smartparens-mode)))
 
 #+end_src
 
@@ -1671,7 +1673,8 @@ Here are packages that are useful across different Lisp and Scheme implementatio
 
 #+begin_src emacs-lisp
   (use-package rainbow-delimiters
-    :hook (prog-mode . rainbow-delimiters-mode))
+    :hook ((prog-mode . rainbow-delimiters-mode)
+           (gerbil-mode . rainbow-delimiters-mode)))
 
 #+end_src
 
