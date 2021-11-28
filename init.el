@@ -547,10 +547,10 @@
 (use-package company
   :after lsp-mode
   :hook (lsp-mode . company-mode)
-  :bind (:map company-active-map
-         ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-         ("<tab>" . company-indent-or-complete-common))
+  ;; :bind (:map company-active-map
+  ;;        ("<tab>" . company-complete-selection))
+  ;;       (:map lsp-mode-map
+  ;;        ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.0))
@@ -1146,3 +1146,16 @@ _d_: date        ^ ^              ^ ^
 (recentf-mode 1)
 (setq recentf-max-menu-items 10)
 (setq recentf-max-saved-items 10)
+
+(use-package yasnippet
+  :hook (prog-mode . yas-minor-mode)
+  :bind ("C-j" . yas-expand)
+  :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets" ;; personal snippets
+          ;; "/path/to/yasnippet/yasmate/snippets" ;; the yasmate collection
+          ))
+  (yas-global-mode 1)
+  (yas-reload-all))
+
+(use-package yasnippet-snippets)
