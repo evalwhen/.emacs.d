@@ -160,6 +160,15 @@
     "og" 'org-agenda
     "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
+(general-create-definer my-local-leader-def
+  :prefix "SPC m")
+
+(my-local-leader-def 'normal go-mode-map
+  "ta" 'go-tag-add
+  "td" 'go-tag-remove
+  "tg" 'go-gen-test-dwim
+  )
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -530,6 +539,9 @@
 :init
 ;; (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
 )
+
+(use-package go-tag)
+(use-package go-gen-test)
 
 (use-package python-mode
   :ensure t
