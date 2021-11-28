@@ -156,6 +156,8 @@
     "wo" 'delete-other-windows
     "w1" 'split-window-vertically
     "w2" 'split-window-horizontally
+    "o" '(:ignore t :which-key "org")
+    "og" 'org-agenda
     "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
 (use-package evil
