@@ -842,6 +842,8 @@
   :hook ((text-mode . ws-butler-mode)
          (prog-mode . ws-butler-mode)))
 
+(require 'org)
+
 (defvar dw/org-roam-project-template
   '("p" "project" plain "** TODO %?"
     :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
@@ -908,6 +910,33 @@ capture was not aborted."
 (defun my/org-roam-refresh-agenda-list ()
   (interactive)
   (setq org-agenda-files (my/org-roam-list-notes-by-tag "Project")))
+
+(require 'org-roam-dailies)
+
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
+        (org-roam-dailies-capture-templates
+         '(("t" "tasks" entry "%?"
+            :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+        (org-after-refile-insert-hook #'save-buffer)
+        today-file
+        pos)
+    (save-window-excursion
+      (org-roam-dailies--capture (current-time) t)
+      (setq today-file (buffer-file-name))
+      (setq pos (point)))
+
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+                   (file-truename (buffer-file-name)))
+      (org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+             (lambda ()
+               (when (equal org-state "DONE")
+                 (my/org-roam-copy-todo-to-today))))
+
 
 (defhydra dw/org-roam-jump-menu (:hint nil)
   "
