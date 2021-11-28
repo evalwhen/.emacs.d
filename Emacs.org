@@ -1856,9 +1856,7 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
     (yas-global-mode 1)
     (yas-reload-all))
 
-  (use-package yasnippet-snippets
-    :defer t
-    :after yasnippet)
+  (use-package yasnippet-snippets)
 #+end_src
 
 * Window

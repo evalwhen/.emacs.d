@@ -1204,9 +1204,7 @@ _d_: date        ^ ^              ^ ^
   (yas-global-mode 1)
   (yas-reload-all))
 
-(use-package yasnippet-snippets
-  :defer t
-  :after yasnippet)
+(use-package yasnippet-snippets)
 
 (use-package winum
   :defer t
