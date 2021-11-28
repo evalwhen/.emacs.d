@@ -85,7 +85,8 @@
 ;; reliably, set `user-emacs-directory` before loading no-littering!
 ;(setq user-emacs-directory "~/.cache/emacs")
 
-(use-package no-littering)
+(use-package no-littering
+  :defer t)
 
 ;; no-littering doesn't set this by default so we must place
 ;; auto save files in the same path as it uses for sessions
@@ -1158,4 +1159,18 @@ _d_: date        ^ ^              ^ ^
   (yas-global-mode 1)
   (yas-reload-all))
 
-(use-package yasnippet-snippets)
+(use-package yasnippet-snippets
+  :defer t
+  :after yasnippet)
+
+(use-package winum
+  :defer t
+  :config
+  (winum-mode 1))
+
+(efs/leader-keys
+  "0" 'winum-select-window-0
+  "1" 'winum-select-window-1
+  "2" 'winum-select-window-2
+  "3" 'winum-select-window-3
+  "4" 'winum-select-window-4)
