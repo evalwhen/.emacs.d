@@ -1131,6 +1131,8 @@ _d_: date        ^ ^              ^ ^
 
 (setq-default indent-tabs-mode nil)
 
+(setq x-select-enable-clipboard t)
+
 (use-package restclient)
 
 (use-package elpa-mirror)

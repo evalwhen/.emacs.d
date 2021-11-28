@@ -1753,6 +1753,14 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 
 #+end_src
 
+** Copy to system pasteboard
+
+#+begin_src emacs-lisp
+
+  (setq x-select-enable-clipboard t)
+
+#+end_src
+
 * Restclient
 
 #+begin_src emacs-lisp
