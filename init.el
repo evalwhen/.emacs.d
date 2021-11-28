@@ -139,10 +139,20 @@
     :global-prefix "C-SPC")
 
   (efs/leader-keys
-    "t"  '(:ignore t :which-key "toggles")
+    "t" '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
-    "f"  '(:ignore t :which-key "files")
+    "f" '(:ignore t :which-key "files")
     "ff" 'counsel-find-file
+    "fr" 'counsel-recentf
+    "b" '(:ignore t :which-key "buffers")
+    "bs" 'ivy-switch-buffer
+    "bd" 'evil-delete-buffer
+    "bb" '(lambda () (interactive) (switch-to-buffer nil)) ; to previous buffer
+    "w" '(:ignore t :which-key "windows")
+    "wd" 'delete-window
+    "wo" 'delete-other-windows
+    "w1" 'split-window-vertically
+    "w2" 'split-window-horizontally
     "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
 (use-package evil
@@ -671,7 +681,7 @@
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 (use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (gerbil-mode . rainbow-delimiters-mode))
 
 (use-package term
   :commands term
@@ -1052,7 +1062,8 @@ _d_: date        ^ ^              ^ ^
          emacs-lisp-mode
          web-mode
          typescript-mode
-         js2-mode))
+         js2-mode
+         gerbil-mode))
 
 (setq-default tab-width 2)
 (setq-default evil-shift-width tab-width)
@@ -1114,3 +1125,7 @@ _d_: date        ^ ^              ^ ^
     (switch-to-buffer buf)))
 
 (global-set-key (kbd "C-c C-g") 'gerbil-setup-buffers)
+
+(recentf-mode 1)
+(setq recentf-max-menu-items 10)
+(setq recentf-max-saved-items 10)
