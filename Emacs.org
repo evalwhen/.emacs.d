@@ -1,4 +1,4 @@
-#+title: Emacs From Scratch Configuration
+ +title: Emacs From Scratch Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
 * Welcome!
@@ -10,6 +10,7 @@ This is the configuration we've been building in the *Emacs From Scratch* series
 The following variables are used to tweak some of the configuration pieces for use in the live streams so you might need to adjust them for your local machine if you try to use this configuration directly.
 
 #+begin_src emacs-lisp
+  ;; -*- lexical-binding: t; -*-
 
   ;; NOTE: init.el is now generated from Emacs.org.  Please edit that file
   ;;       in Emacs and init.el will be generated automatically!
@@ -1436,6 +1437,17 @@ Dial the GC threshold back down so that garbage collection happens more frequent
                                      :if-new (file+head "%<%Y>.org"
                                                         "#+title: %<%Y>\n#+filetags: Project\n")
                                      :unnarrowed t))))
+
+  (defun my/org-roam-project-finalize-hook ()
+    "Adds the captured project file to `org-agenda-files' if the
+  capture was not aborted."
+    ;; Remove the hook since it was added temporarily
+    (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+    ;; Add project file to the agenda list if the capture was confirmed
+    (unless org-note-abort
+      (with-current-buffer (org-capture-get :buffer)
+        (add-to-list 'org-agenda-files (buffer-file-name)))))
 
   (defun dw/org-roam-capture-task ()
     (interactive)

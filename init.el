@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; NOTE: init.el is now generated from Emacs.org.  Please edit that file
 ;;       in Emacs and init.el will be generated automatically!
 
@@ -875,6 +877,17 @@
                                    :if-new (file+head "%<%Y>.org"
                                                       "#+title: %<%Y>\n#+filetags: Project\n")
                                    :unnarrowed t))))
+
+(defun my/org-roam-project-finalize-hook ()
+  "Adds the captured project file to `org-agenda-files' if the
+capture was not aborted."
+  ;; Remove the hook since it was added temporarily
+  (remove-hook 'org-capture-after-finalize-hook #'my/org-roam-project-finalize-hook)
+
+  ;; Add project file to the agenda list if the capture was confirmed
+  (unless org-note-abort
+    (with-current-buffer (org-capture-get :buffer)
+      (add-to-list 'org-agenda-files (buffer-file-name)))))
 
 (defun dw/org-roam-capture-task ()
   (interactive)
