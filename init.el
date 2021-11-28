@@ -1062,16 +1062,55 @@ _d_: date        ^ ^              ^ ^
 (use-package restclient)
 
 (use-package elpa-mirror)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(elpa-mirror ws-butler which-key vterm visual-fill-column use-package typescript-mode smartparens restclient rainbow-mode rainbow-delimiters pyvenv python-mode prettier-js org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-mode git-gutter-fringe general forge flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse deft dap-mode counsel-projectile company-box command-log-mode auto-package-update apheleia all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(use-package gerbil-mode
+  :when (getenv "GERBIL_HOME")
+  :ensure nil
+  :defer t
+  :mode (("\\.ss\\'"  . gerbil-mode)
+         ("\\.pkg\\'" . gerbil-mode))
+  :bind (:map comint-mode-map
+              (("C-S-n" . comint-next-input)
+               ("C-S-p" . comint-previous-input)
+               ("C-S-l" . clear-comint-buffer))
+              :map gerbil-mode-map
+              (("C-S-l" . clear-comint-buffer)))
+  :init
+  (setf gambit (getenv "GAMBIT_HOME"))
+  (setf gerbil (getenv "GERBIL_HOME"))
+  (autoload 'gerbil-mode
+    "~/.emacs.d/localelpa/gerbil-mode.el" "Gerbil editing mode." t)
+  :hook
+  ((inferior-scheme-mode-hook . gambit-inferior-mode))
+  :config
+  (require 'gambit
+           "~/.emacs.d/localelpa/gambit.el")
+  (setf scheme-program-name (concat gerbil "/bin/gxi"))
+
+  (let ((tags (locate-dominating-file default-directory "TAGS")))
+    (when tags (visit-tags-table tags)))
+  (visit-tags-table "~/Downloads/gerbil-0.16/src/TAGS")
+
+  (when (package-installed-p 'smartparens)
+    (sp-pair "'" nil :actions :rem)
+    (sp-pair "`" nil :actions :rem))
+
+  (defun clear-comint-buffer ()
+    (interactive)
+    (with-current-buffer "*scheme*"
+      (let ((comint-buffer-maximum-size 0))
+        (comint-truncate-buffer)))))
+
+(defun gerbil-setup-buffers ()
+  "Change current buffer mode to gerbil-mode and start a REPL"
+  (interactive)
+  (gerbil-mode)
+  (split-window-right)
+  (shrink-window-horizontally 2)
+  (let ((buf (buffer-name)))
+    (other-window 1)
+    (run-scheme "gxi")
+    (switch-to-buffer-other-window "*scheme*" nil)
+    (switch-to-buffer buf)))
+
+(global-set-key (kbd "C-c C-g") 'gerbil-setup-buffers)

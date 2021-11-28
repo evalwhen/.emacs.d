@@ -1699,3 +1699,61 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
   (use-package elpa-mirror)
 
 #+end_src
+
+* Gerbil
+
+#+begin_src emacs-lisp
+
+  (use-package gerbil-mode
+    :when (getenv "GERBIL_HOME")
+    :ensure nil
+    :defer t
+    :mode (("\\.ss\\'"  . gerbil-mode)
+           ("\\.pkg\\'" . gerbil-mode))
+    :bind (:map comint-mode-map
+                (("C-S-n" . comint-next-input)
+                 ("C-S-p" . comint-previous-input)
+                 ("C-S-l" . clear-comint-buffer))
+                :map gerbil-mode-map
+                (("C-S-l" . clear-comint-buffer)))
+    :init
+    (setf gambit (getenv "GAMBIT_HOME"))
+    (setf gerbil (getenv "GERBIL_HOME"))
+    (autoload 'gerbil-mode
+      "~/.emacs.d/localelpa/gerbil-mode.el" "Gerbil editing mode." t)
+    :hook
+    ((inferior-scheme-mode-hook . gambit-inferior-mode))
+    :config
+    (require 'gambit
+             "~/.emacs.d/localelpa/gambit.el")
+    (setf scheme-program-name (concat gerbil "/bin/gxi"))
+
+    (let ((tags (locate-dominating-file default-directory "TAGS")))
+      (when tags (visit-tags-table tags)))
+    (visit-tags-table "~/Downloads/gerbil-0.16/src/TAGS")
+
+    (when (package-installed-p 'smartparens)
+      (sp-pair "'" nil :actions :rem)
+      (sp-pair "`" nil :actions :rem))
+
+    (defun clear-comint-buffer ()
+      (interactive)
+      (with-current-buffer "*scheme*"
+        (let ((comint-buffer-maximum-size 0))
+          (comint-truncate-buffer)))))
+
+  (defun gerbil-setup-buffers ()
+    "Change current buffer mode to gerbil-mode and start a REPL"
+    (interactive)
+    (gerbil-mode)
+    (split-window-right)
+    (shrink-window-horizontally 2)
+    (let ((buf (buffer-name)))
+      (other-window 1)
+      (run-scheme "gxi")
+      (switch-to-buffer-other-window "*scheme*" nil)
+      (switch-to-buffer buf)))
+
+  (global-set-key (kbd "C-c C-g") 'gerbil-setup-buffers)
+
+#+end_src
