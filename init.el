@@ -1197,10 +1197,7 @@ _d_: date        ^ ^              ^ ^
   :hook (prog-mode . yas-minor-mode)
   :bind ("C-j" . yas-expand)
   :config
-  (setq yas-snippet-dirs
-        '("~/.emacs.d/snippets" ;; personal snippets
-          ;; "/path/to/yasnippet/yasmate/snippets" ;; the yasmate collection
-          ))
+  (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
   (yas-global-mode 1)
   (yas-reload-all))
 
