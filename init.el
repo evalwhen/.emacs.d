@@ -199,11 +199,11 @@
 (use-package doom-themes
   :init (load-theme 'doom-palenight t))
 
-(use-package all-the-icons)
+;; (use-package all-the-icons)
 
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 10)))
+;; (use-package doom-modeline
+;;   :init (doom-modeline-mode 1)
+;;   :custom ((doom-modeline-height 10)))
 
 (use-package which-key
   :defer 0
@@ -483,6 +483,7 @@
   :hook (lsp-mode . efs/lsp-mode-setup)
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  (setq lsp-headerline-breadcrumb-icons-enable nil)
   :config
   (lsp-enable-which-key-integration t))
 
