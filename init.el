@@ -197,7 +197,7 @@
   :commands command-log-mode)
 
 (use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+  :init (load-theme 'doom-solarized-light t))
 
 ;; (use-package all-the-icons)
 
@@ -545,6 +545,16 @@
 (use-package go-tag)
 (use-package go-gen-test)
 
+(evil-declare-key 'normal go-mode-map
+  "ta" 'go-tag-add
+  "tr" 'go-tag-refresh
+  "td" 'go-tag-remove
+
+  "gd" 'lsp-find-definition
+  "gr" 'lsp-find-references
+  "gb" 'evil-jump-backward
+  )
+
 (use-package python-mode
   :ensure t
   :hook (python-mode . lsp-deferred)
@@ -757,7 +767,7 @@
 
   (eshell-git-prompt-use-theme 'powerline))
 
-(use-package all-the-icons-dired)
+;; (use-package all-the-icons-dired)
 
 (use-package dired
   :ensure nil
@@ -784,8 +794,8 @@
               (dired-omit-mode 1)
               (dired-hide-details-mode 1)
               (unless (or dw/is-termux
-                          (s-equals? "/gnu/store/" (expand-file-name default-directory)))
-                (all-the-icons-dired-mode 1))
+                          (s-equals? "/gnu/store/" (expand-file-name default-directory))))
+                ;; (all-the-icons-dired-mode 1))
               (hl-line-mode 1)))
 
   (use-package dired-rainbow
@@ -1167,7 +1177,7 @@ _d_: date        ^ ^              ^ ^
 
   (let ((tags (locate-dominating-file default-directory "TAGS")))
     (when tags (visit-tags-table tags)))
-  (visit-tags-table "~/Downloads/gerbil-0.16/src/TAGS")
+  (visit-tags-table "~/.gerbil/TAGS")
 
   (when (package-installed-p 'smartparens)
     (sp-pair "'" nil :actions :rem)

@@ -285,8 +285,8 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
 
 #+begin_src emacs-lisp
 
-(use-package doom-themes
-  :init (load-theme 'doom-palenight t))
+  (use-package doom-themes
+    :init (load-theme 'doom-solarized-light t))
 
 #+end_src
 
@@ -833,6 +833,17 @@ This will install the [[https://github.com/theia-ide/typescript-language-server]
 
   (use-package go-tag)
   (use-package go-gen-test)
+
+  (evil-declare-key 'normal go-mode-map
+    "ta" 'go-tag-add
+    "tr" 'go-tag-refresh
+    "td" 'go-tag-remove
+
+    "gd" 'lsp-find-definition
+    "gr" 'lsp-find-references
+    "gb" 'evil-jump-backward
+    )
+
 #+end_src
 
 *** Python
@@ -1271,7 +1282,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (use-package all-the-icons-dired)
+  ;; (use-package all-the-icons-dired)
 
   (use-package dired
     :ensure nil
@@ -1298,8 +1309,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                 (dired-omit-mode 1)
                 (dired-hide-details-mode 1)
                 (unless (or dw/is-termux
-                            (s-equals? "/gnu/store/" (expand-file-name default-directory)))
-                  (all-the-icons-dired-mode 1))
+                            (s-equals? "/gnu/store/" (expand-file-name default-directory))))
+                  ;; (all-the-icons-dired-mode 1))
                 (hl-line-mode 1)))
 
     (use-package dired-rainbow
@@ -1808,7 +1819,7 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 
     (let ((tags (locate-dominating-file default-directory "TAGS")))
       (when tags (visit-tags-table tags)))
-    (visit-tags-table "~/Downloads/gerbil-0.16/src/TAGS")
+    (visit-tags-table "~/.gerbil/TAGS")
 
     (when (package-installed-p 'smartparens)
       (sp-pair "'" nil :actions :rem)
