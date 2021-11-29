@@ -4,11 +4,11 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 180)
-(defvar efs/default-variable-font-size 180)
+(defvar efs/default-font-size 140)
+(defvar efs/default-variable-font-size 140)
 
 ;; Make frame transparency overridable
-(defvar efs/frame-transparency '(90 . 90))
+(defvar efs/frame-transparency '(95 . 95))
 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
@@ -42,10 +42,11 @@
 (require 'package)
 
 ;; Initialize package sources
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+;;                          ("melpa-stable" . "https://stable.melpa.org/packages/")
+;;                          ("org" . "https://orgmode.org/elpa/")
+;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
+(setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
 
 (package-initialize)
 (unless package-archive-contents
@@ -58,7 +59,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-;; Bootstrap straight.el
+;; ;; Bootstrap straight.el
 ;; (defvar bootstrap-version)
 ;; (let ((bootstrap-file
 ;;       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -72,14 +73,14 @@
 ;;       (eval-print-last-sexp)))
 ;;   (load bootstrap-file nil 'nomessage))
 
-;; Always use straight to install on systems other than Linux
-;; (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
+;; ;; Always use straight to install on systems other than Linux
+;; ;; (setq straight-use-package-by-default (not (eq system-type 'gnu/linux)))
 ;; (setq straight-use-package-by-default t)
 
-;; Use straight.el for use-package expressions
+;; ;; Use straight.el for use-package expressions
 ;; (straight-use-package 'use-package)
 
-;; Clean up unused repos with `straight-remove-unused-repos'
+;; ;; Clean up unused repos with `straight-remove-unused-repos'
 
 ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
 ;; reliably, set `user-emacs-directory` before loading no-littering!
@@ -202,7 +203,7 @@
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :custom ((doom-modeline-height 10)))
 
 (use-package which-key
   :defer 0
@@ -305,134 +306,134 @@
   (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
   (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
 
-(defun efs/org-mode-setup ()
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (visual-line-mode 1))
+;; (defun efs/org-mode-setup ()
+;;   (org-indent-mode)
+;;   (variable-pitch-mode 1)
+;;   (visual-line-mode 1))
 
-(use-package org
-  :pin org
-  :commands (org-capture org-agenda)
-  :hook (org-mode . efs/org-mode-setup)
-  :config
-  (setq org-ellipsis " ▾")
+;; (use-package org
+;;   :pin org
+;;   :commands (org-capture org-agenda)
+;;   :hook (org-mode . efs/org-mode-setup)
+;;   :config
+;;   (setq org-ellipsis " ▾")
 
-  (setq org-agenda-start-with-log-mode t)
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
+;;   (setq org-agenda-start-with-log-mode t)
+;;   (setq org-log-done 'time)
+;;   (setq org-log-into-drawer t)
 
-  (setq org-agenda-files
-        '("~/Projects/Code/emacs-from-scratch/OrgFiles/Tasks.org"
-          "~/Projects/Code/emacs-from-scratch/OrgFiles/Habits.org"
-          "~/Projects/Code/emacs-from-scratch/OrgFiles/Birthdays.org"))
+;;   (setq org-agenda-files
+;;         '("~/Projects/Code/emacs-from-scratch/OrgFiles/Tasks.org"
+;;           "~/Projects/Code/emacs-from-scratch/OrgFiles/Habits.org"
+;;           "~/Projects/Code/emacs-from-scratch/OrgFiles/Birthdays.org"))
 
-  (require 'org-habit)
-  (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-graph-column 60)
+;;   (require 'org-habit)
+;;   (add-to-list 'org-modules 'org-habit)
+;;   (setq org-habit-graph-column 60)
 
-  (setq org-todo-keywords
-    '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-      (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
+;;   (setq org-todo-keywords
+;;     '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+;;       (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k@)")))
 
-  (setq org-refile-targets
-    '(("Archive.org" :maxlevel . 1)
-      ("Tasks.org" :maxlevel . 1)))
+;;   (setq org-refile-targets
+;;     '(("Archive.org" :maxlevel . 1)
+;;       ("Tasks.org" :maxlevel . 1)))
 
-  ;; Save Org buffers after refiling!
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+;;   ;; Save Org buffers after refiling!
+;;   (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-  (setq org-tag-alist
-    '((:startgroup)
-       ; Put mutually exclusive tags here
-       (:endgroup)
-       ("@errand" . ?E)
-       ("@home" . ?H)
-       ("@work" . ?W)
-       ("agenda" . ?a)
-       ("planning" . ?p)
-       ("publish" . ?P)
-       ("batch" . ?b)
-       ("note" . ?n)
-       ("idea" . ?i)))
+;;   (setq org-tag-alist
+;;     '((:startgroup)
+;;        ; Put mutually exclusive tags here
+;;        (:endgroup)
+;;        ("@errand" . ?E)
+;;        ("@home" . ?H)
+;;        ("@work" . ?W)
+;;        ("agenda" . ?a)
+;;        ("planning" . ?p)
+;;        ("publish" . ?P)
+;;        ("batch" . ?b)
+;;        ("note" . ?n)
+;;        ("idea" . ?i)))
 
-  ;; Configure custom agenda views
-  (setq org-agenda-custom-commands
-   '(("d" "Dashboard"
-     ((agenda "" ((org-deadline-warning-days 7)))
-      (todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))
-      (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+;;   ;; Configure custom agenda views
+;;   (setq org-agenda-custom-commands
+;;    '(("d" "Dashboard"
+;;      ((agenda "" ((org-deadline-warning-days 7)))
+;;       (todo "NEXT"
+;;         ((org-agenda-overriding-header "Next Tasks")))
+;;       (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
 
-    ("n" "Next Tasks"
-     ((todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))))
+;;     ("n" "Next Tasks"
+;;      ((todo "NEXT"
+;;         ((org-agenda-overriding-header "Next Tasks")))))
 
-    ("W" "Work Tasks" tags-todo "+work-email")
+;;     ("W" "Work Tasks" tags-todo "+work-email")
 
-    ;; Low-effort next actions
-    ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-     ((org-agenda-overriding-header "Low Effort Tasks")
-      (org-agenda-max-todos 20)
-      (org-agenda-files org-agenda-files)))
+;;     ;; Low-effort next actions
+;;     ("e" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
+;;      ((org-agenda-overriding-header "Low Effort Tasks")
+;;       (org-agenda-max-todos 20)
+;;       (org-agenda-files org-agenda-files)))
 
-    ("w" "Workflow Status"
-     ((todo "WAIT"
-            ((org-agenda-overriding-header "Waiting on External")
-             (org-agenda-files org-agenda-files)))
-      (todo "REVIEW"
-            ((org-agenda-overriding-header "In Review")
-             (org-agenda-files org-agenda-files)))
-      (todo "PLAN"
-            ((org-agenda-overriding-header "In Planning")
-             (org-agenda-todo-list-sublevels nil)
-             (org-agenda-files org-agenda-files)))
-      (todo "BACKLOG"
-            ((org-agenda-overriding-header "Project Backlog")
-             (org-agenda-todo-list-sublevels nil)
-             (org-agenda-files org-agenda-files)))
-      (todo "READY"
-            ((org-agenda-overriding-header "Ready for Work")
-             (org-agenda-files org-agenda-files)))
-      (todo "ACTIVE"
-            ((org-agenda-overriding-header "Active Projects")
-             (org-agenda-files org-agenda-files)))
-      (todo "COMPLETED"
-            ((org-agenda-overriding-header "Completed Projects")
-             (org-agenda-files org-agenda-files)))
-      (todo "CANC"
-            ((org-agenda-overriding-header "Cancelled Projects")
-             (org-agenda-files org-agenda-files)))))))
+;;     ("w" "Workflow Status"
+;;      ((todo "WAIT"
+;;             ((org-agenda-overriding-header "Waiting on External")
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "REVIEW"
+;;             ((org-agenda-overriding-header "In Review")
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "PLAN"
+;;             ((org-agenda-overriding-header "In Planning")
+;;              (org-agenda-todo-list-sublevels nil)
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "BACKLOG"
+;;             ((org-agenda-overriding-header "Project Backlog")
+;;              (org-agenda-todo-list-sublevels nil)
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "READY"
+;;             ((org-agenda-overriding-header "Ready for Work")
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "ACTIVE"
+;;             ((org-agenda-overriding-header "Active Projects")
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "COMPLETED"
+;;             ((org-agenda-overriding-header "Completed Projects")
+;;              (org-agenda-files org-agenda-files)))
+;;       (todo "CANC"
+;;             ((org-agenda-overriding-header "Cancelled Projects")
+;;              (org-agenda-files org-agenda-files)))))))
 
-  (setq org-capture-templates
-    `(("t" "Tasks / Projects")
-      ("tt" "Task" entry (file+olp "~/Projects/Code/emacs-from-scratch/OrgFiles/Tasks.org" "Inbox")
-           "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+;;   (setq org-capture-templates
+;;     `(("t" "Tasks / Projects")
+;;       ("tt" "Task" entry (file+olp "~/Projects/Code/emacs-from-scratch/OrgFiles/Tasks.org" "Inbox")
+;;            "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
-      ("j" "Journal Entries")
-      ("jj" "Journal" entry
-           (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
-           "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-           ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
-           :clock-in :clock-resume
-           :empty-lines 1)
-      ("jm" "Meeting" entry
-           (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
-           "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-           :clock-in :clock-resume
-           :empty-lines 1)
+;;       ("j" "Journal Entries")
+;;       ("jj" "Journal" entry
+;;            (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
+;;            "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
+;;            ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
+;;            :clock-in :clock-resume
+;;            :empty-lines 1)
+;;       ("jm" "Meeting" entry
+;;            (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
+;;            "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
+;;            :clock-in :clock-resume
+;;            :empty-lines 1)
 
-      ("w" "Workflows")
-      ("we" "Checking Email" entry (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
-           "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+;;       ("w" "Workflows")
+;;       ("we" "Checking Email" entry (file+olp+datetree "~/Projects/Code/emacs-from-scratch/OrgFiles/Journal.org")
+;;            "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
 
-      ("m" "Metrics Capture")
-      ("mw" "Weight" table-line (file+headline "~/Projects/Code/emacs-from-scratch/OrgFiles/Metrics.org" "Weight")
-       "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
+;;       ("m" "Metrics Capture")
+;;       ("mw" "Weight" table-line (file+headline "~/Projects/Code/emacs-from-scratch/OrgFiles/Metrics.org" "Weight")
+;;        "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
-  (define-key global-map (kbd "C-c j")
-    (lambda () (interactive) (org-capture nil "jj")))
+;;   (define-key global-map (kbd "C-c j")
+;;     (lambda () (interactive) (org-capture nil "jj")))
 
-  (efs/org-font-setup))
+;;   (efs/org-font-setup))
 
 (use-package org-bullets
   :hook (org-mode . org-bullets-mode)
@@ -859,8 +860,8 @@
 (defvar dw/org-roam-project-template
   '("p" "project" plain "** TODO %?"
     :if-new (file+head+olp "%<%Y%m%d%H%M%S>-${slug}.org"
-                           "#+title: ${title}\n#+category: ${title}\n#+filetags: Project\n"
-                           ("Tasks"))))
+			   "#+title: ${title}\n#+category: ${title}\n#+filetags: Project\n"
+			   ("Tasks"))))
 
 (defun my/org-roam-filter-by-tag (tag-name)
   (lambda (node)
@@ -868,34 +869,34 @@
 
 (defun my/org-roam-list-notes-by-tag (tag-name)
   (mapcar #'org-roam-node-file
-          (seq-filter
-           (my/org-roam-filter-by-tag tag-name)
-           (org-roam-node-list))))
+	  (seq-filter
+	   (my/org-roam-filter-by-tag tag-name)
+	   (org-roam-node-list))))
 
 (defun org-roam-node-insert-immediate (arg &rest args)
   (interactive "P")
   (let ((args (push arg args))
-        (org-roam-capture-templates (list (append (car org-roam-capture-templates)
-                                                  '(:immediate-finish t)))))
+	(org-roam-capture-templates (list (append (car org-roam-capture-templates)
+						  '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 
 (defun dw/org-roam-goto-month ()
   (interactive)
   (org-roam-capture- :goto (when (org-roam-node-from-title-or-alias (format-time-string "%Y-%B")) '(4))
-                     :node (org-roam-node-create)
-                     :templates '(("m" "month" plain "\n* Goals\n\n%?* Summary\n\n"
-                                   :if-new (file+head "%<%Y-%B>.org"
-                                                      "#+title: %<%Y-%B>\n#+filetags: Project\n")
-                                   :unnarrowed t))))
+		     :node (org-roam-node-create)
+		     :templates '(("m" "month" plain "\n* Goals\n\n%?* Summary\n\n"
+				   :if-new (file+head "%<%Y-%B>.org"
+						"#+title: %<%Y-%B>\n#+filetags: Project\n")
+				   :unnarrowed t))))
 
 (defun dw/org-roam-goto-year ()
   (interactive)
   (org-roam-capture- :goto (when (org-roam-node-from-title-or-alias (format-time-string "%Y")) '(4))
-                     :node (org-roam-node-create)
-                     :templates '(("y" "year" plain "\n* Goals\n\n%?* Summary\n\n"
-                                   :if-new (file+head "%<%Y>.org"
-                                                      "#+title: %<%Y>\n#+filetags: Project\n")
-                                   :unnarrowed t))))
+		     :node (org-roam-node-create)
+		     :templates '(("y" "year" plain "\n* Goals\n\n%?* Summary\n\n"
+				   :if-new (file+head "%<%Y>.org"
+						"#+title: %<%Y>\n#+filetags: Project\n")
+				   :unnarrowed t))))
 
 (defun my/org-roam-project-finalize-hook ()
   "Adds the captured project file to `org-agenda-files' if the
@@ -906,7 +907,7 @@ capture was not aborted."
   ;; Add project file to the agenda list if the capture was confirmed
   (unless org-note-abort
     (with-current-buffer (org-capture-get :buffer)
-      (add-to-list 'org-agenda-files (buffer-file-name)))))
+(add-to-list 'org-agenda-files (buffer-file-name)))))
 
 (defun dw/org-roam-capture-task ()
   (interactive)
@@ -915,39 +916,13 @@ capture was not aborted."
 
   ;; Capture the new task, creating the project file if necessary
   (org-roam-capture- :node (org-roam-node-read
-                            nil
-                            (my/org-roam-filter-by-tag "Project"))
-                     :templates (list dw/org-roam-project-template)))
+			    nil
+			    (my/org-roam-filter-by-tag "Project"))
+		     :templates (list dw/org-roam-project-template)))
 
 (defun my/org-roam-refresh-agenda-list ()
   (interactive)
   (setq org-agenda-files (my/org-roam-list-notes-by-tag "Project")))
-
-(require 'org-roam-dailies)
-
-(defun my/org-roam-copy-todo-to-today ()
-  (interactive)
-  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
-        (org-roam-dailies-capture-templates
-         '(("t" "tasks" entry "%?"
-            :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
-        (org-after-refile-insert-hook #'save-buffer)
-        today-file
-        pos)
-    (save-window-excursion
-      (org-roam-dailies--capture (current-time) t)
-      (setq today-file (buffer-file-name))
-      (setq pos (point)))
-
-    ;; Only refile if the target file is different than the current file
-    (unless (equal (file-truename today-file)
-                   (file-truename (buffer-file-name)))
-      (org-refile nil nil (list "Tasks" today-file nil pos)))))
-
-(add-to-list 'org-after-todo-state-change-hook
-             (lambda ()
-               (when (equal org-state "DONE")
-                 (my/org-roam-copy-todo-to-today))))
 
 
 (defhydra dw/org-roam-jump-menu (:hint nil)
@@ -976,56 +951,84 @@ _d_: date        ^ ^              ^ ^
   :init
   (setq org-roam-v2-ack t)
   (setq dw/daily-note-filename "%<%Y-%m-%d>.org"
-        dw/daily-note-header "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
+	dw/daily-note-header "#+title: %<%Y-%m-%d %a>\n\n[[roam:%<%Y-%B>]]\n\n")
   :custom
   (org-roam-directory "~/Notes/Roam/")
   (org-roam-dailies-directory "Journal/")
   (org-roam-completion-everywhere t)
   (org-roam-capture-templates
    '(("d" "default" plain "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                         "#+title: ${title}\n")
-      :unnarrowed t)))
+:if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+			 "#+title: ${title}\n")
+:unnarrowed t)))
   (org-roam-dailies-capture-templates
    `(("d" "default" entry
-      "* %?"
-      :if-new (file+head ,dw/daily-note-filename
-                         ,dw/daily-note-header))
+"* %?"
+:if-new (file+head ,dw/daily-note-filename
+			 ,dw/daily-note-header))
      ("t" "task" entry
-      "* TODO %?\n  %U\n  %a\n  %i"
-      :if-new (file+head+olp ,dw/daily-note-filename
-                             ,dw/daily-note-header
-                             ("Tasks"))
-      :empty-lines 1)
+"* TODO %?\n  %U\n  %a\n  %i"
+:if-new (file+head+olp ,dw/daily-note-filename
+			     ,dw/daily-note-header
+			     ("Tasks"))
+:empty-lines 1)
      ("l" "log entry" entry
-      "* %<%I:%M %p> - %?"
-      :if-new (file+head+olp ,dw/daily-note-filename
-                             ,dw/daily-note-header
-                             ("Log")))
+"* %<%I:%M %p> - %?"
+:if-new (file+head+olp ,dw/daily-note-filename
+			     ,dw/daily-note-header
+			     ("Log")))
      ("j" "journal" entry
-      "* %<%I:%M %p> - Journal  :journal:\n\n%?\n\n"
-      :if-new (file+head+olp ,dw/daily-note-filename
-                             ,dw/daily-note-header
-                             ("Log")))
+"* %<%I:%M %p> - Journal  :journal:\n\n%?\n\n"
+:if-new (file+head+olp ,dw/daily-note-filename
+			     ,dw/daily-note-header
+			     ("Log")))
      ("m" "meeting" entry
-      "* %<%I:%M %p> - %^{Meeting Title}  :meetings:\n\n%?\n\n"
-      :if-new (file+head+olp ,dw/daily-note-filename
-                             ,dw/daily-note-header
-                             ("Log")))))
+"* %<%I:%M %p> - %^{Meeting Title}  :meetings:\n\n%?\n\n"
+:if-new (file+head+olp ,dw/daily-note-filename
+			     ,dw/daily-note-header
+			     ("Log")))))
   :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n d" . dw/org-roam-jump-menu/body)
-         ("C-c n c" . org-roam-dailies-capture-today)
-         ("C-c n t" . dw/org-roam-capture-task)
-         ("C-c n g" . org-roam-graph)
-         :map org-mode-map
-         (("C-c n i" . org-roam-node-insert)
-          ("C-c n I" . org-roam-insert-immediate)))
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n d" . dw/org-roam-jump-menu/body)
+	 ("C-c n c" . org-roam-dailies-capture-today)
+	 ("C-c n t" . dw/org-roam-capture-task)
+	 ("C-c n g" . org-roam-graph)
+	 :map org-mode-map
+	 (("C-c n i" . org-roam-node-insert)
+	  ("C-c n I" . org-roam-insert-immediate)))
   :config
   (org-roam-db-autosync-mode)
 
   ;; Build the agenda list the first time for the session
   (my/org-roam-refresh-agenda-list))
+
+
+
+(require 'org-roam-dailies)
+
+(defun my/org-roam-copy-todo-to-today ()
+  (interactive)
+  (let ((org-refile-keep t) ;; Set this to nil to delete the original!
+	(org-roam-dailies-capture-templates
+	 '(("t" "tasks" entry "%?"
+	    :if-new (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("Tasks")))))
+	(org-after-refile-insert-hook #'save-buffer)
+	today-file
+	pos)
+    (save-window-excursion
+(org-roam-dailies--capture (current-time) t)
+(setq today-file (buffer-file-name))
+(setq pos (point)))
+
+    ;; Only refile if the target file is different than the current file
+    (unless (equal (file-truename today-file)
+		   (file-truename (buffer-file-name)))
+(org-refile nil nil (list "Tasks" today-file nil pos)))))
+
+(add-to-list 'org-after-todo-state-change-hook
+	     (lambda ()
+	 (when (equal org-state "DONE")
+		 (my/org-roam-copy-todo-to-today))))
 
 (use-package deft
   :commands (deft)
