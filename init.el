@@ -159,6 +159,8 @@
     "w2" 'split-window-horizontally
     "o" '(:ignore t :which-key "org")
     "og" 'org-agenda
+    "c" '(:ignore t :which-key "comment")
+    "cl" 'evilnc-comment-or-uncomment-lines
     "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
 (general-create-definer my-local-leader-def
@@ -709,7 +711,8 @@
   (set-face-foreground 'git-gutter:deleted "LightCoral"))
 
 (use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+  ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
+  )
 
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))

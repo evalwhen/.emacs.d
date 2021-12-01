@@ -230,6 +230,8 @@ This configuration uses [[https://evil.readthedocs.io/en/latest/index.html][evil
       "w2" 'split-window-horizontally
       "o" '(:ignore t :which-key "org")
       "og" 'org-agenda
+      "c" '(:ignore t :which-key "comment")
+      "cl" 'evilnc-comment-or-uncomment-lines
       "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
 
   (general-create-definer my-local-leader-def
@@ -1064,7 +1066,8 @@ Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=)
 #+begin_src emacs-lisp
 
   (use-package evil-nerd-commenter
-    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+    ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
+    )
 
 #+end_src
 
