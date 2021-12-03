@@ -614,12 +614,14 @@
   (counsel-projectile-mode))
 
 (efs/leader-keys
-  "pf"  'projectile-find-file
-  "ps"  'projectile-switch-project
-  "pF"  'consult-ripgrep
-  "pp"  'projectile-find-file
-  "pc"  'projectile-compile-project
-  "pd"  'projectile-dired)
+  "pf" 'projectile-find-file
+  "ps" 'projectile-switch-project
+  "pF" 'consult-ripgrep
+  "pf" 'projectile-find-file
+  "pc" 'projectile-compile-project
+  "pk" 'projectile-kill-buffers
+  "pb" 'projectile-switch-to-buffer
+  "pd" 'projectile-dired)
 
 (use-package magit
   :bind ("C-M-;" . magit-status)
