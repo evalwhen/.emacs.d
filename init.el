@@ -148,6 +148,7 @@
     :global-prefix "C-SPC")
 
   (efs/leader-keys
+    "SPC" 'counsel-M-x
     "t" '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     "f" '(:ignore t :which-key "files")
@@ -166,7 +167,8 @@
     "og" 'org-agenda
     "c" '(:ignore t :which-key "comment")
     "cl" 'evilnc-comment-or-uncomment-lines
-    "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))))
+    "fde" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))
+    "fdz" '(lambda () (interactive) (find-file (expand-file-name "~/.zshrc")))))
 
 (general-create-definer my-local-leader-def
   :prefix "SPC m")
@@ -174,8 +176,7 @@
 (my-local-leader-def 'normal go-mode-map
   "ta" 'go-tag-add
   "td" 'go-tag-remove
-  "tg" 'go-gen-test-dwim
-  )
+  "tg" 'go-gen-test-dwim)
 
 (use-package evil
   :init
