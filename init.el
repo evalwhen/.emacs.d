@@ -4,8 +4,8 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 140)
-(defvar efs/default-variable-font-size 140)
+(defvar efs/default-font-size 180)
+(defvar efs/default-variable-font-size 180)
 
 ;; Make frame transparency overridable
 (defvar efs/frame-transparency '(95 . 95))
@@ -42,11 +42,11 @@
 (require 'package)
 
 ;; Initialize package sources
-;; (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-;;                          ("melpa-stable" . "https://stable.melpa.org/packages/")
-;;                          ("org" . "https://orgmode.org/elpa/")
-;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
-(setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;; (setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
 ;; geiser
 ;; (add-to-list 'package-archives
 ;;   ;; choose either the stable or the latest git version:
