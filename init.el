@@ -1270,3 +1270,15 @@ _d_: date        ^ ^              ^ ^
 (add-hook 'lisp-mode-hook #'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+
+(use-package sly
+  :config
+  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+  )
+
+(evil-declare-key 'normal lisp-mode-map
+  "gd" 'sly-edit-definition
+  "gr" 'sly-edit-uses
+  "gc" 'sly-compile-and-load-file
+  "gf" 'sly-compile-defun
+  "gb" 'sly-pop-find-definition-stack)
