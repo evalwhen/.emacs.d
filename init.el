@@ -1280,7 +1280,13 @@ _d_: date        ^ ^              ^ ^
 
 (evil-declare-key 'normal lisp-mode-map
   "gd" 'sly-edit-definition
-  "gr" 'sly-edit-uses
-  "gc" 'sly-compile-and-load-file
+  "gr" 'sly-who-references
+  "gc" 'sly-who-calls
+  "gm" 'sly-who-macroexpands
   "gf" 'sly-compile-defun
-  "gb" 'sly-pop-find-definition-stack)
+  "gb" 'sly-pop-find-definition-stack
+  "ds" 'sly-stickers-dwim
+  "dr" 'sly-stickers-replay
+  "dt" 'sly-stickers-toggle-break-on-stickers
+  "df" 'sly-stickers-fetch
+  )
