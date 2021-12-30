@@ -76,7 +76,7 @@ Emacs has a built in package manager but it doesn't make it easy to automaticall
   (require 'package)
 
   ;; Initialize package sources
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+  (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                            ("melpa-stable" . "https://stable.melpa.org/packages/")
                            ("org" . "https://orgmode.org/elpa/")
                            ("elpa" . "https://elpa.gnu.org/packages/")))
@@ -1949,12 +1949,22 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
     "gm" 'sly-who-macroexpands
     "gf" 'sly-compile-defun
     "gb" 'sly-pop-find-definition-stack
-    "ds" 'sly-stickers-dwim
-    "dr" 'sly-stickers-replay
-    "dt" 'sly-stickers-toggle-break-on-stickers
-    "df" 'sly-stickers-fetch
+    ;; "ds" 'sly-stickers-dwim
+    ;; "dr" 'sly-stickers-replay
+    ;; "dt" 'sly-stickers-toggle-break-on-stickers
+    ;; "df" 'sly-stickers-fetch
+    )
+
+  (evil-declare-key 'normal sly-mrepl-mode-map
+    "sb" 'isearch-backward
     )
 
 #+end_src
 
-#+RESULTS:
+
+* Racket
+
+#+begin_src emacs-lisp
+    (use-package racket-mode)
+
+#+end_src
