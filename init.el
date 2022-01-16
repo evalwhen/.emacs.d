@@ -4,8 +4,8 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 180)
-(defvar efs/default-variable-font-size 180)
+(defvar efs/default-font-size 160)
+(defvar efs/default-variable-font-size 160)
 
 ;; Make frame transparency overridable
 (defvar efs/frame-transparency '(95 . 95))
@@ -601,6 +601,7 @@
   (persp-switch (projectile-project-name))
   (magit-status))
 
+(use-package ag)
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
