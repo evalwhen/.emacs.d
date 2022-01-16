@@ -1273,6 +1273,15 @@ _d_: date        ^ ^              ^ ^
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
+(when (require 'paredit nil t)
+  (dolist (map (list lisp-mode-map emacs-lisp-mode-map))
+    (define-key map (kbd "C-]")   'paredit-forward-slurp-sexp)
+    (define-key map (kbd "C-c ]")   'paredit-backward-slurp-sexp)
+    (define-key map (kbd "C-[") 'paredit-forward-barf-sexp)
+    (define-key map (kbd "C-s [") 'paredit-backward-barf-sexp)
+    (define-key map (kbd "C-s r") 'paredit-raise-sexp)
+    (define-key map (kbd "C-s =")   'paredit-reindent-defun)))
+
 (use-package sly
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
@@ -1285,6 +1294,12 @@ _d_: date        ^ ^              ^ ^
   "gm" 'sly-who-macroexpands
   "gf" 'sly-compile-defun
   "gb" 'sly-pop-find-definition-stack
+  "psf" 'paredit-forward-slurp-sexp
+  "psb" 'paredit-backward-slurp-sexp
+  "pbf" 'paredit-forward-barf-sexp
+  "pbb" 'paredit-backward-barf-sexp
+  "pr" 'paredit-raise-sexp
+  "pw" 'paredit-wrap-sexp
   ;; "ds" 'sly-stickers-dwim
   ;; "dr" 'sly-stickers-replay
   ;; "dt" 'sly-stickers-toggle-break-on-stickers
@@ -1298,3 +1313,8 @@ _d_: date        ^ ^              ^ ^
 (use-package racket-mode)
 
 (add-hook 'racket-mode-hook #'racket-xp-mode)
+
+(my-local-leader-def 'normal racket-mode-map
+  "gg" 'xref-find-definitions
+  "gr" 'xref-find-references
+  "gb" 'evil-jump-backward)
