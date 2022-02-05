@@ -1189,7 +1189,7 @@ _d_: date        ^ ^              ^ ^
 
   (let ((tags (locate-dominating-file default-directory "TAGS")))
     (when tags (visit-tags-table tags)))
-  (visit-tags-table "~/.gerbil/TAGS")
+  (visit-tags-table "~/Downloads/gerbil-0.16/TAGS")
 
   (when (package-installed-p 'smartparens)
     (sp-pair "'" nil :actions :rem)
@@ -1274,15 +1274,6 @@ _d_: date        ^ ^              ^ ^
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
-(when (require 'paredit nil t)
-  (dolist (map (list lisp-mode-map emacs-lisp-mode-map))
-    (define-key map (kbd "C-]")   'paredit-forward-slurp-sexp)
-    (define-key map (kbd "C-c ]")   'paredit-backward-slurp-sexp)
-    (define-key map (kbd "C-[") 'paredit-forward-barf-sexp)
-    (define-key map (kbd "C-s [") 'paredit-backward-barf-sexp)
-    (define-key map (kbd "C-s r") 'paredit-raise-sexp)
-    (define-key map (kbd "C-s =")   'paredit-reindent-defun)))
-
 (use-package sly
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
@@ -1295,17 +1286,21 @@ _d_: date        ^ ^              ^ ^
   "gm" 'sly-who-macroexpands
   "gf" 'sly-compile-defun
   "gb" 'sly-pop-find-definition-stack
-  "psf" 'paredit-forward-slurp-sexp
-  "psb" 'paredit-backward-slurp-sexp
-  "pbf" 'paredit-forward-barf-sexp
-  "pbb" 'paredit-backward-barf-sexp
-  "pr" 'paredit-raise-sexp
-  "pw" 'paredit-wrap-sexp
   ;; "ds" 'sly-stickers-dwim
   ;; "dr" 'sly-stickers-replay
   ;; "dt" 'sly-stickers-toggle-break-on-stickers
   ;; "df" 'sly-stickers-fetch
   )
+
+(my-local-leader-def 'normal lisp-mode-map
+  "sf" 'paredit-forward-slurp-sexp
+  "sb" 'paredit-backward-slurp-sexp
+  "bf" 'paredit-forward-barf-sexp
+  "bb" 'paredit-backward-barf-sexp
+  "r" 'paredit-raise-sexp
+  "w" 'paredit-wrap-sexp)
+
+
 
 (evil-declare-key 'normal sly-mrepl-mode-map
   "sb" 'isearch-backward
@@ -1316,6 +1311,18 @@ _d_: date        ^ ^              ^ ^
 (add-hook 'racket-mode-hook #'racket-xp-mode)
 
 (my-local-leader-def 'normal racket-mode-map
+  "x" 'racket-run
+  "s" 'paredit-forward-slurp-sexp
+  "b" 'paredit-forward-barf-sexp
+  "r" 'paredit-raise-sexp
   "gg" 'xref-find-definitions
   "gr" 'xref-find-references
-  "gb" 'evil-jump-backward)
+  "gb" 'evil-jump-backward
+  ;; "bs" 'paredit-backward-slurp-sexp
+  ;; "bb" 'paredit-backward-barf-sexp
+  )
+
+(when (require 'paredit nil t)
+  (dolist (map (list racket-mode-map lisp-mode-map emacs-lisp-mode-map))
+    (define-key map (kbd "C-s r") 'paredit-raise-sexp)
+    (define-key map (kbd "C-s =") 'paredit-reindent-defun)))
