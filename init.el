@@ -4,8 +4,8 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 160)
-(defvar efs/default-variable-font-size 160)
+(defvar efs/default-font-size 140)
+(defvar efs/default-variable-font-size 140)
 
 ;; Make frame transparency overridable
 (defvar efs/frame-transparency '(95 . 95))
@@ -42,11 +42,11 @@
 (require 'package)
 
 ;; Initialize package sources
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-;; (setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
+;; (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+;;                          ("melpa-stable" . "https://stable.melpa.org/packages/")
+;;                          ("org" . "https://orgmode.org/elpa/")
+;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
+(setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
 ;; geiser
 ;; (add-to-list 'package-archives
 ;;   ;; choose either the stable or the latest git version:
@@ -1299,16 +1299,3 @@ _d_: date        ^ ^              ^ ^
 (use-package racket-mode)
 
 (add-hook 'racket-mode-hook #'racket-xp-mode)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(ag yasnippet-snippets ws-butler winum which-key vterm visual-fill-column use-package typescript-mode smartparens sly restclient rainbow-mode rainbow-delimiters racket-mode pyvenv python-mode projectile prettier-js paredit org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-tag go-gen-test git-gutter-fringe general geiser-gambit flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt elpa-mirror doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-collapse deft dap-mode counsel company-box command-log-mode apheleia all-the-icons-dired)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
