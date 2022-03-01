@@ -1159,7 +1159,8 @@ _d_: date        ^ ^              ^ ^
 
 (setq x-select-enable-clipboard t)
 
-(use-package restclient)
+(use-package restclient
+  :mode (("\\.http\\'" . restclient-mode)))
 
 (use-package elpa-mirror)
 

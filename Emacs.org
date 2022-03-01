@@ -1790,7 +1790,8 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 
 #+begin_src emacs-lisp
 
-  (use-package restclient)
+  (use-package restclient
+    :mode (("\\.http\\'" . restclient-mode)))
 #+end_src
 
 * Elpa-mirror
