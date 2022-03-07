@@ -628,7 +628,9 @@
   "pc" 'projectile-compile-project
   "pk" 'projectile-kill-buffers
   "pb" 'projectile-switch-to-buffer
-  "pd" 'projectile-dired)
+  "pd" 'projectile-dired
+  "pr" 'projectile-grep
+  )
 
 (use-package magit
   :bind ("C-M-;" . magit-status)

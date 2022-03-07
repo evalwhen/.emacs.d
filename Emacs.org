@@ -958,7 +958,9 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
     "pc" 'projectile-compile-project
     "pk" 'projectile-kill-buffers
     "pb" 'projectile-switch-to-buffer
-    "pd" 'projectile-dired)
+    "pd" 'projectile-dired
+    "pr" 'projectile-grep
+    )
 
 #+end_src
 
