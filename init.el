@@ -630,6 +630,7 @@
   "pb" 'projectile-switch-to-buffer
   "pd" 'projectile-dired
   "pr" 'projectile-grep
+  "pa" 'projectile-ag
   )
 
 (use-package magit

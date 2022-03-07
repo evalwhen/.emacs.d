@@ -960,6 +960,7 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
     "pb" 'projectile-switch-to-buffer
     "pd" 'projectile-dired
     "pr" 'projectile-grep
+    "pa" 'projectile-ag
     )
 
 #+end_src
