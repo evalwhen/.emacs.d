@@ -4,8 +4,8 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 180)
-(defvar efs/default-variable-font-size 180)
+(defvar efs/default-font-size 150)
+(defvar efs/default-variable-font-size 150)
 
 ;; Make frame transparency overridable
 (defvar efs/frame-transparency '(95 . 95))
@@ -552,6 +552,7 @@
 
 (use-package go-tag)
 (use-package go-gen-test)
+(use-package go-impl)
 
 (evil-declare-key 'normal go-mode-map
   "ta" 'go-tag-add
@@ -719,9 +720,7 @@
   (set-face-foreground 'git-gutter:modified "LightGoldenrod")
   (set-face-foreground 'git-gutter:deleted "LightCoral"))
 
-(use-package evil-nerd-commenter
-  ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
-  )
+(use-package vc-msg)
 
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))
@@ -1326,3 +1325,16 @@ _d_: date        ^ ^              ^ ^
   (dolist (map (list racket-mode-map lisp-mode-map emacs-lisp-mode-map))
     (define-key map (kbd "C-s r") 'paredit-raise-sexp)
     (define-key map (kbd "C-s =") 'paredit-reindent-defun)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vc-msg go-impl yasnippet-snippets ws-butler winum which-key vterm visual-fill-column use-package typescript-mode smartparens sly restclient rainbow-mode rainbow-delimiters racket-mode pyvenv python-mode projectile prettier-js paredit org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-tag go-gen-test git-gutter-fringe general geiser-gambit flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt elpa-mirror doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-collapse deft dap-mode counsel company-box command-log-mode apheleia all-the-icons-dired ag)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
