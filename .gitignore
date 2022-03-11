@@ -2,3 +2,5 @@ etc/
 var/
 elpa/
 packages/
+racket-mode/*
+racket-mode

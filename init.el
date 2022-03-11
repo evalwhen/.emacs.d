@@ -552,6 +552,7 @@
 
 (use-package go-tag)
 (use-package go-gen-test)
+(use-package go-impl)
 
 (evil-declare-key 'normal go-mode-map
   "ta" 'go-tag-add
@@ -722,9 +723,7 @@
   (set-face-foreground 'git-gutter:modified "LightGoldenrod")
   (set-face-foreground 'git-gutter:deleted "LightCoral"))
 
-(use-package evil-nerd-commenter
-  ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
-  )
+(use-package vc-msg)
 
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))
@@ -1193,7 +1192,7 @@ _d_: date        ^ ^              ^ ^
 
   (let ((tags (locate-dominating-file default-directory "TAGS")))
     (when tags (visit-tags-table tags)))
-  (visit-tags-table "~/.gerbil/TAGS")
+  (visit-tags-table "~/Downloads/gerbil-0.16/TAGS")
 
   (when (package-installed-p 'smartparens)
     (sp-pair "'" nil :actions :rem)
@@ -1296,6 +1295,16 @@ _d_: date        ^ ^              ^ ^
   ;; "df" 'sly-stickers-fetch
   )
 
+(my-local-leader-def 'normal lisp-mode-map
+  "sf" 'paredit-forward-slurp-sexp
+  "sb" 'paredit-backward-slurp-sexp
+  "bf" 'paredit-forward-barf-sexp
+  "bb" 'paredit-backward-barf-sexp
+  "r" 'paredit-raise-sexp
+  "w" 'paredit-wrap-sexp)
+
+
+
 (evil-declare-key 'normal sly-mrepl-mode-map
   "sb" 'isearch-backward
   )
@@ -1303,3 +1312,20 @@ _d_: date        ^ ^              ^ ^
 (use-package racket-mode)
 
 (add-hook 'racket-mode-hook #'racket-xp-mode)
+
+(my-local-leader-def 'normal racket-mode-map
+  "x" 'racket-run
+  "s" 'paredit-forward-slurp-sexp
+  "b" 'paredit-forward-barf-sexp
+  "r" 'paredit-raise-sexp
+  "gg" 'xref-find-definitions
+  "gr" 'xref-find-references
+  "gb" 'evil-jump-backward
+  ;; "bs" 'paredit-backward-slurp-sexp
+  ;; "bb" 'paredit-backward-barf-sexp
+  )
+
+(when (require 'paredit nil t)
+  (dolist (map (list racket-mode-map lisp-mode-map emacs-lisp-mode-map))
+    (define-key map (kbd "C-s r") 'paredit-raise-sexp)
+    (define-key map (kbd "C-s =") 'paredit-reindent-defun)))

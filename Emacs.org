@@ -841,6 +841,7 @@ This will install the [[https://github.com/theia-ide/typescript-language-server]
 
   (use-package go-tag)
   (use-package go-gen-test)
+  (use-package go-impl)
 
   (evil-declare-key 'normal go-mode-map
     "ta" 'go-tag-add
@@ -1071,15 +1072,23 @@ This is an interesting extension to Magit that shows a TODOs section in your git
 
 #+end_src
 
+** Git-Msg
 ** Commenting
-
-Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=) doesn't always comment things in the way you might expect so we use [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] to provide a more familiar behavior.  I've bound it to =M-/= since other editors sometimes use this binding but you could also replace Emacs' =M-;= binding with this command.
 
 #+begin_src emacs-lisp
 
-  (use-package evil-nerd-commenter
-    ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
-    )
+    (use-package vc-msg)
+
+
+#+end_src
+
+  Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=) doesn't always comment things in the way you might expect so we use [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] to provide a more familiar behavior.  I've bound it to =M-/= since other editors sometimes use this binding but you could also replace Emacs' =M-;= binding with this command.
+
+  ,#+begin_src emacs-lisp
+
+    (use-package evil-nerd-commenter
+      ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
+      )
 
 #+end_src
 
@@ -1835,7 +1844,7 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 
     (let ((tags (locate-dominating-file default-directory "TAGS")))
       (when tags (visit-tags-table tags)))
-    (visit-tags-table "~/.gerbil/TAGS")
+    (visit-tags-table "~/Downloads/gerbil-0.16/TAGS")
 
     (when (package-installed-p 'smartparens)
       (sp-pair "'" nil :actions :rem)
@@ -1960,6 +1969,16 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
     ;; "df" 'sly-stickers-fetch
     )
 
+  (my-local-leader-def 'normal lisp-mode-map
+    "sf" 'paredit-forward-slurp-sexp
+    "sb" 'paredit-backward-slurp-sexp
+    "bf" 'paredit-forward-barf-sexp
+    "bb" 'paredit-backward-barf-sexp
+    "r" 'paredit-raise-sexp
+    "w" 'paredit-wrap-sexp)
+
+
+
   (evil-declare-key 'normal sly-mrepl-mode-map
     "sb" 'isearch-backward
     )
@@ -1974,5 +1993,20 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 
   (add-hook 'racket-mode-hook #'racket-xp-mode)
 
+  (my-local-leader-def 'normal racket-mode-map
+    "x" 'racket-run
+    "s" 'paredit-forward-slurp-sexp
+    "b" 'paredit-forward-barf-sexp
+    "r" 'paredit-raise-sexp
+    "gg" 'xref-find-definitions
+    "gr" 'xref-find-references
+    "gb" 'evil-jump-backward
+    ;; "bs" 'paredit-backward-slurp-sexp
+    ;; "bb" 'paredit-backward-barf-sexp
+    )
 
+  (when (require 'paredit nil t)
+    (dolist (map (list racket-mode-map lisp-mode-map emacs-lisp-mode-map))
+      (define-key map (kbd "C-s r") 'paredit-raise-sexp)
+      (define-key map (kbd "C-s =") 'paredit-reindent-defun)))
 #+end_src
