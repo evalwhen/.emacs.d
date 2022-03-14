@@ -553,6 +553,9 @@
 (use-package go-tag)
 (use-package go-gen-test)
 (use-package go-impl)
+(use-package go-guru
+  :defer t
+  :hook (go-mode . go-guru-hl-identifier-mode))
 
 (evil-declare-key 'normal go-mode-map
   "ta" 'go-tag-add
@@ -1331,7 +1334,7 @@ _d_: date        ^ ^              ^ ^
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vc-msg go-impl yasnippet-snippets ws-butler winum which-key vterm visual-fill-column use-package typescript-mode smartparens sly restclient rainbow-mode rainbow-delimiters racket-mode pyvenv python-mode projectile prettier-js paredit org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-tag go-gen-test git-gutter-fringe general geiser-gambit flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt elpa-mirror doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-collapse deft dap-mode counsel company-box command-log-mode apheleia all-the-icons-dired ag)))
+   '(go-guru yasnippet-snippets ws-butler winum which-key vterm visual-fill-column vc-msg use-package typescript-mode smartparens sly restclient rainbow-mode rainbow-delimiters racket-mode pyvenv python-mode projectile prettier-js paredit org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville js2-mode ivy-rich ivy-prescient helpful go-tag go-impl go-gen-test git-gutter-fringe general geiser-gambit flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt elpa-mirror doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-collapse deft dap-mode counsel company-box command-log-mode apheleia all-the-icons-dired ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
