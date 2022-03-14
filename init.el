@@ -553,6 +553,9 @@
 (use-package go-tag)
 (use-package go-gen-test)
 (use-package go-impl)
+(use-package go-guru
+  :defer t
+  :hook (go-mode . go-guru-hl-identifier-mode))
 
 (evil-declare-key 'normal go-mode-map
   "ta" 'go-tag-add
