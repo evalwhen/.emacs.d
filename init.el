@@ -1259,7 +1259,7 @@ _d_: date        ^ ^              ^ ^
 (use-package geiser-mit
   :ensure t
   :config
-  (setq geiser-active-implementations '(gambit))
+  (setq geiser-active-implementations '(mit))
   )
 
 

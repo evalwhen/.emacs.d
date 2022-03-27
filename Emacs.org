@@ -1927,7 +1927,7 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
   (use-package geiser-mit
     :ensure t
     :config
-    (setq geiser-active-implementations '(gambit))
+    (setq geiser-active-implementations '(mit))
     )
 
 
