@@ -16,8 +16,8 @@ The following variables are used to tweak some of the configuration pieces for u
   ;;       in Emacs and init.el will be generated automatically!
 
   ;; You will most likely need to adjust this font size for your system!
-  (defvar efs/default-font-size 150)
-  (defvar efs/default-variable-font-size 150)
+  (defvar efs/default-font-size 170)
+  (defvar efs/default-variable-font-size 170)
 
   ;; Make frame transparency overridable
   (defvar efs/frame-transparency '(95 . 95))
@@ -1073,14 +1073,12 @@ This is an interesting extension to Magit that shows a TODOs section in your git
 #+end_src
 
 ** Git-Msg
-** Commenting
 
 #+begin_src emacs-lisp
-
-    (use-package vc-msg)
-
-
+  ;; (use-package vc-msg)
 #+end_src
+
+** Commenting
 
   Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=) doesn't always comment things in the way you might expect so we use [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] to provide a more familiar behavior.  I've bound it to =M-/= since other editors sometimes use this binding but you could also replace Emacs' =M-;= binding with this command.
 
@@ -1701,6 +1699,13 @@ Here are packages that are useful across different Lisp and Scheme implementatio
     :config
     (setq prettier-js-show-errors nil))
 
+  (use-package skewer-mode
+    ;; (add-hook 'js2-mode-hook #'skewer-mode)
+    ;; (add-hook 'css-mode-hook 'skewer-css-mode)
+    ;; (add-hook 'html-mode-hook 'skewer-html-mode)
+    :hook ((js2-mode . skewer-mode))
+    )
+
 #+end_src
 
 ** Emacs Lisp
@@ -1913,11 +1918,19 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 * Scheme
 
 #+begin_src emacs-lisp
-  (use-package geiser-gambit
+  ;; (use-package geiser-gambit
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq geiser-active-implementations '(gambit))
+  ;;   )
+
+  (use-package geiser-mit
     :ensure t
     :config
     (setq geiser-active-implementations '(gambit))
     )
+
+
 
   (my-local-leader-def 'normal scheme-mode-map
     "gg" 'xref-find-definitions
