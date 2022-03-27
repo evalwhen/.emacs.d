@@ -1265,9 +1265,13 @@ _d_: date        ^ ^              ^ ^
 
 
 (my-local-leader-def 'normal scheme-mode-map
+  "x" 'geiser
+  "'" 'geiser-mode-switch-to-repl
   "gg" 'xref-find-definitions
   "gr" 'xref-find-references
   "gb" 'evil-jump-backward
+  "lf" 'geiser-load-file
+  "ed" 'geiser-eval-definition-and-go
   )
 
 
