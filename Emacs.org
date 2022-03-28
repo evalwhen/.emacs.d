@@ -1074,14 +1074,12 @@ This is an interesting extension to Magit that shows a TODOs section in your git
 #+end_src
 
 ** Git-Msg
-** Commenting
 
 #+begin_src emacs-lisp
-
-    (use-package vc-msg)
-
-
+  ;; (use-package vc-msg)
 #+end_src
+
+** Commenting
 
   Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=) doesn't always comment things in the way you might expect so we use [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] to provide a more familiar behavior.  I've bound it to =M-/= since other editors sometimes use this binding but you could also replace Emacs' =M-;= binding with this command.
 
@@ -1702,6 +1700,13 @@ Here are packages that are useful across different Lisp and Scheme implementatio
     :config
     (setq prettier-js-show-errors nil))
 
+  (use-package skewer-mode
+    ;; (add-hook 'js2-mode-hook #'skewer-mode)
+    ;; (add-hook 'css-mode-hook 'skewer-css-mode)
+    ;; (add-hook 'html-mode-hook 'skewer-html-mode)
+    :hook ((js2-mode . skewer-mode))
+    )
+
 #+end_src
 
 ** Emacs Lisp
@@ -1915,16 +1920,28 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
 * Scheme
 
 #+begin_src emacs-lisp
-  (use-package geiser-gambit
+  ;; (use-package geiser-gambit
+  ;;   :ensure t
+  ;;   :config
+  ;;   (setq geiser-active-implementations '(gambit))
+  ;;   )
+
+  (use-package geiser-mit
     :ensure t
     :config
-    (setq geiser-active-implementations '(gambit))
+    (setq geiser-active-implementations '(mit))
     )
 
+
+
   (my-local-leader-def 'normal scheme-mode-map
+    "x" 'geiser
+    "'" 'geiser-mode-switch-to-repl
     "gg" 'xref-find-definitions
     "gr" 'xref-find-references
     "gb" 'evil-jump-backward
+    "lf" 'geiser-load-file
+    "ed" 'geiser-eval-definition-and-go
     )
 
 

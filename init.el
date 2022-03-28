@@ -724,7 +724,7 @@
   (set-face-foreground 'git-gutter:modified "LightGoldenrod")
   (set-face-foreground 'git-gutter:deleted "LightCoral"))
 
-(use-package vc-msg)
+;; (use-package vc-msg)
 
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))
@@ -1113,6 +1113,13 @@ _d_: date        ^ ^              ^ ^
   :config
   (setq prettier-js-show-errors nil))
 
+(use-package skewer-mode
+  ;; (add-hook 'js2-mode-hook #'skewer-mode)
+  ;; (add-hook 'css-mode-hook 'skewer-css-mode)
+  ;; (add-hook 'html-mode-hook 'skewer-html-mode)
+  :hook ((js2-mode . skewer-mode))
+  )
+
 (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
 
 (use-package helpful
@@ -1245,16 +1252,28 @@ _d_: date        ^ ^              ^ ^
   "3" 'winum-select-window-3
   "4" 'winum-select-window-4)
 
-(use-package geiser-gambit
+;; (use-package geiser-gambit
+;;   :ensure t
+;;   :config
+;;   (setq geiser-active-implementations '(gambit))
+;;   )
+
+(use-package geiser-mit
   :ensure t
   :config
-  (setq geiser-active-implementations '(gambit))
+  (setq geiser-active-implementations '(mit))
   )
 
+
+
 (my-local-leader-def 'normal scheme-mode-map
+  "x" 'geiser
+  "'" 'geiser-mode-switch-to-repl
   "gg" 'xref-find-definitions
   "gr" 'xref-find-references
   "gb" 'evil-jump-backward
+  "lf" 'geiser-load-file
+  "ed" 'geiser-eval-definition-and-go
   )
 
 
