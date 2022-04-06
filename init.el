@@ -8,7 +8,7 @@
 (defvar efs/default-variable-font-size 170)
 
 ;; Make frame transparency overridable
-(defvar efs/frame-transparency '(95 . 95))
+(defvar efs/frame-transparency '(100 . 100))
 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))

@@ -20,7 +20,7 @@ The following variables are used to tweak some of the configuration pieces for u
   (defvar efs/default-variable-font-size 170)
 
   ;; Make frame transparency overridable
-  (defvar efs/frame-transparency '(95 . 95))
+  (defvar efs/frame-transparency '(100 . 100))
 #+end_src
 
 * Tips for Use
