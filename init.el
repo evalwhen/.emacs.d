@@ -492,6 +492,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   (setq lsp-headerline-breadcrumb-icons-enable nil)
+  (setq lsp-enable-file-watchers t)
+  (setq lsp-file-watch-threshold nil) ;; no waring when file greater than threshold
   :config
   (lsp-enable-which-key-integration t))
 
@@ -724,7 +726,7 @@
   (set-face-foreground 'git-gutter:modified "LightGoldenrod")
   (set-face-foreground 'git-gutter:deleted "LightCoral"))
 
-;; (use-package vc-msg)
+(use-package vc-msg)
 
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))

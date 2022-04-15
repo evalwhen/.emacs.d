@@ -715,6 +715,8 @@ The =which-key= integration adds helpful descriptions of the various keys so you
     :init
     (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
     (setq lsp-headerline-breadcrumb-icons-enable nil)
+    (setq lsp-enable-file-watchers t)
+    (setq lsp-file-watch-threshold nil) ;; no waring when file greater than threshold
     :config
     (lsp-enable-which-key-integration t))
 
@@ -1076,7 +1078,7 @@ This is an interesting extension to Magit that shows a TODOs section in your git
 ** Git-Msg
 
 #+begin_src emacs-lisp
-  ;; (use-package vc-msg)
+  (use-package vc-msg)
 #+end_src
 
 ** Commenting
