@@ -506,7 +506,9 @@
   "ls" 'counsel-imenu
   "le" 'lsp-ui-flycheck-list
   "lS" 'lsp-ui-sideline-mode
-  "lX" 'lsp-execute-code-action)
+  "lX" 'lsp-execute-code-action
+  "lk" 'lsp-workspace-restart
+  )
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)

@@ -729,7 +729,9 @@ The =which-key= integration adds helpful descriptions of the various keys so you
     "ls" 'counsel-imenu
     "le" 'lsp-ui-flycheck-list
     "lS" 'lsp-ui-sideline-mode
-    "lX" 'lsp-execute-code-action)
+    "lX" 'lsp-execute-code-action
+    "lk" 'lsp-workspace-restart
+    )
 #+end_src
 
 **** lsp-ui
