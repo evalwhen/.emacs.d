@@ -1964,6 +1964,14 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
   (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 #+end_src
 
+* Shen
+
+#+begin_src emacs-lisp
+    (use-package shen-mode
+      )
+
+#+end_src
+
 * Common Lisp
 
 #+begin_src emacs-lisp

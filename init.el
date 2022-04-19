@@ -1295,6 +1295,9 @@ _d_: date        ^ ^              ^ ^
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
+(use-package shen-mode
+  )
+
 (use-package sly
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
@@ -1347,3 +1350,16 @@ _d_: date        ^ ^              ^ ^
   (dolist (map (list racket-mode-map lisp-mode-map emacs-lisp-mode-map))
     (define-key map (kbd "C-s r") 'paredit-raise-sexp)
     (define-key map (kbd "C-s =") 'paredit-reindent-defun)))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(shen-mode yasnippet-snippets ws-butler winum which-key wgrep vterm visual-fill-column use-package typescript-mode smartparens sly skewer-mode restclient rainbow-mode rainbow-delimiters racket-mode pyvenv python-mode prettier-js paredit org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville ivy-rich ivy-prescient helpful go-tag go-impl go-guru go-gen-test git-gutter-fringe general geiser-mit geiser-gambit geiser-chicken geiser-chez forge flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt elpa-mirror doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse deft dap-mode counsel-projectile company-box command-log-mode bufler auto-package-update apheleia all-the-icons-dired ag)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
