@@ -20,7 +20,7 @@ The following variables are used to tweak some of the configuration pieces for u
   (defvar efs/default-variable-font-size 140)
 
   ;; Make frame transparency overridable
-  (defvar efs/frame-transparency '(95 . 95))
+  (defvar efs/frame-transparency '(100 . 100))
 #+end_src
 
 * Tips for Use
@@ -1968,6 +1968,14 @@ Default to an indentation size of 2 spaces since it’s the norm for pretty much
   (add-hook 'lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
   (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+#+end_src
+
+* Shen
+
+#+begin_src emacs-lisp
+    (use-package shen-mode
+      )
+
 #+end_src
 
 * Common Lisp
