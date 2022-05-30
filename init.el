@@ -1256,24 +1256,11 @@ _d_: date        ^ ^              ^ ^
 ;;   (setq geiser-active-implementations '(gambit))
 ;;   )
 
-(use-package geiser-mit
-  :ensure t
-  :config
-  (setq geiser-active-implementations '(mit))
-  )
-
-
-
-(my-local-leader-def 'normal scheme-mode-map
-  "x" 'geiser
-  "'" 'geiser-mode-switch-to-repl
-  "gg" 'xref-find-definitions
-  "gr" 'xref-find-references
-  "gb" 'evil-jump-backward
-  "lf" 'geiser-load-file
-  "ed" 'geiser-eval-definition-and-go
-  )
-
+;; (use-package geiser-mit
+;;   :ensure t
+;;   :config
+;;   (setq geiser-active-implementations '(mit))
+;;   )
 
 ;; (use-package geiser-chez
 ;;   :ensure t
@@ -1281,6 +1268,19 @@ _d_: date        ^ ^              ^ ^
 ;;   (setq geiser-active-implementations '(chez))
 ;;   (setq geiser-chez-binary "/usr/local/bin/chez")
 ;;   )
+
+
+;; (my-local-leader-def 'normal scheme-mode-map
+;;   "x" 'geiser
+;;   "'" 'geiser-mode-switch-to-repl
+;;   "gg" 'xref-find-definitions
+;;   "gr" 'xref-find-references
+;;   "gb" 'evil-jump-backward
+;;   "lf" 'geiser-load-file
+;;   "ed" 'geiser-eval-definition-and-go
+;;   )
+
+
 ;; (use-package geiser-chicken
 ;;   :ensure t
 ;;   :config
@@ -1294,6 +1294,52 @@ _d_: date        ^ ^              ^ ^
 (add-hook 'lisp-mode-hook #'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+
+;; teacher yin conf
+(require 'cmuscheme)
+(setq scheme-program-name "chez")         ;; 如果用 Petite 就改成 "petite"
+
+;; bypass the interactive question and start the default interpreter
+(defun scheme-proc ()
+  "Return the current Scheme process, starting one if necessary."
+  (unless (and scheme-buffer
+               (get-buffer scheme-buffer)
+               (comint-check-proc scheme-buffer))
+    (save-window-excursion
+      (run-scheme scheme-program-name)))
+  (or (scheme-get-process)
+      (error "No current process. See variable `scheme-buffer'")))
+
+(defun scheme-split-window ()
+  (cond
+   ((= 1 (count-windows))
+    (delete-other-windows)
+    (split-window-vertically (floor (* 0.68 (window-height))))
+    (other-window 1)
+    (switch-to-buffer "*scheme*")
+    (other-window 1))
+   ((not (member "*scheme*"
+               (mapcar (lambda (w) (buffer-name (window-buffer w)))
+                       (window-list))))
+    (other-window 1)
+    (switch-to-buffer "*scheme*")
+    (other-window -1))))
+
+(defun scheme-send-last-sexp-split-window ()
+  (interactive)
+  (scheme-split-window)
+  (scheme-send-last-sexp))
+
+(defun scheme-send-definition-split-window ()
+  (interactive)
+  (scheme-split-window)
+  (scheme-send-definition))
+
+(add-hook 'scheme-mode-hook
+  (lambda ()
+    (paredit-mode 1)
+    (define-key scheme-mode-map (kbd "<f5>") 'scheme-send-last-sexp-split-window)
+    (define-key scheme-mode-map (kbd "<f6>") 'scheme-send-definition-split-window)))
 
 (use-package shen-mode
   )
@@ -1345,21 +1391,11 @@ _d_: date        ^ ^              ^ ^
   ;; "bs" 'paredit-backward-slurp-sexp
   ;; "bb" 'paredit-backward-barf-sexp
   )
+(evil-declare-key 'normal racket-mode-map
+  "gb" 'evil-jump-backward)
+
 
 (when (require 'paredit nil t)
   (dolist (map (list racket-mode-map lisp-mode-map emacs-lisp-mode-map))
     (define-key map (kbd "C-s r") 'paredit-raise-sexp)
     (define-key map (kbd "C-s =") 'paredit-reindent-defun)))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(shen-mode yasnippet-snippets ws-butler winum which-key wgrep vterm visual-fill-column use-package typescript-mode smartparens sly skewer-mode restclient rainbow-mode rainbow-delimiters racket-mode pyvenv python-mode prettier-js paredit org-roam org-bullets org-appear no-littering magit-todos lsp-ui lsp-ivy lispyville ivy-rich ivy-prescient helpful go-tag go-impl go-guru go-gen-test git-gutter-fringe general geiser-mit geiser-gambit geiser-chicken geiser-chez forge flycheck evil-nerd-commenter evil-collection eterm-256color eshell-git-prompt elpa-mirror doom-themes doom-modeline dired-single dired-ranger dired-rainbow dired-open dired-hide-dotfiles dired-collapse deft dap-mode counsel-projectile company-box command-log-mode bufler auto-package-update apheleia all-the-icons-dired ag)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
