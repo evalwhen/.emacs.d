@@ -948,7 +948,8 @@ We also use [[https://github.com/sebastiencs/company-box][company-box]] to furth
     :init
     (when (file-directory-p "~/Projects/Code")
       (setq projectile-project-search-path '("~/Projects/Code")))
-    (setq projectile-switch-project-action #'dw/switch-project-action))
+    (setq projectile-switch-project-action #'dw/switch-project-action)
+    (setq projectile-git-submodule-command nil))
 
   (use-package counsel-projectile
     :disabled
