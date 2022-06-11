@@ -13,8 +13,8 @@ This file generates [[file:init.el][init.el]] which can be loaded by Emacs at st
   ;;       in Emacs and init.el will be generated automatically!
 
   ;; You will most likely need to adjust this font size for your system!
-  (defvar efs/default-font-size 150)
-  (defvar efs/default-variable-font-size 150)
+  (defvar efs/default-font-size 180)
+  (defvar efs/default-variable-font-size 180)
 
   ;; Make frame transparency overridable
   (defvar efs/frame-transparency '(100 . 100))
