@@ -4,8 +4,8 @@
 ;;       in Emacs and init.el will be generated automatically!
 
 ;; You will most likely need to adjust this font size for your system!
-(defvar efs/default-font-size 170)
-(defvar efs/default-variable-font-size 170)
+(defvar efs/default-font-size 140)
+(defvar efs/default-variable-font-size 140)
 
 ;; Make frame transparency overridable
 (defvar efs/frame-transparency '(100 . 100))
@@ -42,11 +42,11 @@
 (require 'package)
 
 ;; Initialize package sources
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-;; (setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
+;; (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+;;                          ("melpa-stable" . "https://stable.melpa.org/packages/")
+;;                          ("org" . "https://orgmode.org/elpa/")
+;;                          ("elpa" . "https://elpa.gnu.org/packages/")))
+(setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
 ;; geiser
 ;; (add-to-list 'package-archives
 ;;   ;; choose either the stable or the latest git version:
@@ -492,6 +492,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   (setq lsp-headerline-breadcrumb-icons-enable nil)
+  (setq lsp-enable-file-watchers t)
+  (setq lsp-file-watch-threshold nil) ;; no waring when file greater than threshold
   :config
   (lsp-enable-which-key-integration t))
 
@@ -504,7 +506,9 @@
   "ls" 'counsel-imenu
   "le" 'lsp-ui-flycheck-list
   "lS" 'lsp-ui-sideline-mode
-  "lX" 'lsp-execute-code-action)
+  "lX" 'lsp-execute-code-action
+  "lk" 'lsp-workspace-restart
+  )
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
@@ -553,9 +557,6 @@
 (use-package go-tag)
 (use-package go-gen-test)
 (use-package go-impl)
-(use-package go-guru
-  :defer t
-  :hook (go-mode . go-guru-hl-identifier-mode))
 
 (evil-declare-key 'normal go-mode-map
   "ta" 'go-tag-add
@@ -564,6 +565,7 @@
 
   "gd" 'lsp-find-definition
   "gr" 'lsp-find-references
+  "gi" 'lsp-find-implementation
   "gb" 'evil-jump-backward
   )
 
@@ -616,7 +618,8 @@
   :init
   (when (file-directory-p "~/Projects/Code")
     (setq projectile-project-search-path '("~/Projects/Code")))
-  (setq projectile-switch-project-action #'dw/switch-project-action))
+  (setq projectile-switch-project-action #'dw/switch-project-action)
+  (setq projectile-git-submodule-command nil))
 
 (use-package counsel-projectile
   :disabled
@@ -632,7 +635,10 @@
   "pc" 'projectile-compile-project
   "pk" 'projectile-kill-buffers
   "pb" 'projectile-switch-to-buffer
-  "pd" 'projectile-dired)
+  "pd" 'projectile-dired
+  "pr" 'projectile-grep
+  "pa" 'projectile-ag
+  )
 
 (use-package magit
   :bind ("C-M-;" . magit-status)
@@ -723,7 +729,7 @@
   (set-face-foreground 'git-gutter:modified "LightGoldenrod")
   (set-face-foreground 'git-gutter:deleted "LightCoral"))
 
-;; (use-package vc-msg)
+(use-package vc-msg)
 
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))
@@ -1168,7 +1174,8 @@ _d_: date        ^ ^              ^ ^
 
 (setq x-select-enable-clipboard t)
 
-(use-package restclient)
+(use-package restclient
+  :mode (("\\.http\\'" . restclient-mode)))
 
 (use-package elpa-mirror)
 
