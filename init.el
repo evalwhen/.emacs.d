@@ -42,15 +42,15 @@
 (require 'package)
 
 ;; Initialize package sources
-(setq package-archives '(
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
-                         ;; ("org" . "https://orgmode.org/elpa/")
-                         ;; ("elpa" . "https://elpa.gnu.org/packages/")
-                         ))
+;; (setq package-archives '(
+;;                          ("melpa" . "http://melpa.org/packages/")
+;;                          ("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+;;                          ;; ("org" . "https://orgmode.org/elpa/")
+;;                          ;; ("elpa" . "https://elpa.gnu.org/packages/")
+;;                          ))
 
-;; (setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
+(setq package-archives '(("myelpa" . "~/myelpa-mirror/")))
 ;; geiser
 ;; (add-to-list 'package-archives
 ;;   ;; choose either the stable or the latest git version:
