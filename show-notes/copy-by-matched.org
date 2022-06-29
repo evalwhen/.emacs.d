@@ -1,0 +1,9 @@
+C-u M-x occur \"\(#[^\"]+\)\" <RETURN> \1
+
+(this strips the quotes)
+
+or
+
+C-u M-x occur "#.+\" <RETURN>
+
+(this keeps the quotes)
