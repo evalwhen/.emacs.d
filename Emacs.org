@@ -1739,6 +1739,11 @@ Here are packages that are useful across different Lisp and Scheme implementatio
     :keymaps '(visual)
     "er" '(eval-region :which-key "eval region"))
 
+  (evil-declare-key 'normal emacs-lisp-mode-map
+
+    "gd" 'xref-find-definitions
+    "gr" 'xref-find-references
+    "gb" 'evil-jump-backward)
 #+end_src
 
 ** Syntax checking with Flycheck

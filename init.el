@@ -1150,6 +1150,12 @@ _d_: date        ^ ^              ^ ^
   :keymaps '(visual)
   "er" '(eval-region :which-key "eval region"))
 
+(evil-declare-key 'normal emacs-lisp-mode-map
+
+  "gd" 'xref-find-definitions
+  "gr" 'xref-find-references
+  "gb" 'evil-jump-backward)
+
 (use-package flycheck
   :defer t
   :hook (lsp-mode . flycheck-mode))
