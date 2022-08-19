@@ -1193,7 +1193,7 @@ _d_: date        ^ ^              ^ ^
   :when (getenv "GERBIL_HOME")
   :ensure nil
   :defer t
-  :mode (("\\.ss\\'"  . gerbil-mode)
+  :mode (("\\.ss\\'" . gerbil-mode)
          ("\\.pkg\\'" . gerbil-mode))
   :bind (:map comint-mode-map
               (("C-S-n" . comint-next-input)
@@ -1215,7 +1215,7 @@ _d_: date        ^ ^              ^ ^
 
   (let ((tags (locate-dominating-file default-directory "TAGS")))
     (when tags (visit-tags-table tags)))
-  (visit-tags-table "~/Downloads/gerbil-0.16/TAGS")
+  (visit-tags-table "~/.gerbil/src/TAGS")
 
   (when (package-installed-p 'smartparens)
     (sp-pair "'" nil :actions :rem)
@@ -1240,6 +1240,19 @@ _d_: date        ^ ^              ^ ^
     (switch-to-buffer buf)))
 
 (global-set-key (kbd "C-c C-g") 'gerbil-setup-buffers)
+
+(my-local-leader-def 'normal gerbil-mode-map
+  "sf" 'paredit-forward-slurp-sexp
+  "sb" 'paredit-backward-slurp-sexp
+  "bf" 'paredit-forward-barf-sexp
+  "bb" 'paredit-backward-barf-sexp
+  "r" 'paredit-raise-sexp
+  "w" 'paredit-wrap-sexp)
+
+(evil-declare-key 'normal gerbil-mode-map
+  "gd" 'xref-find-definitions
+  "gr" 'xref-find-references
+  "gb" 'xref-go-back)
 
 (recentf-mode 1)
 (setq recentf-max-menu-items 10)
