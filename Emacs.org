@@ -1713,6 +1713,10 @@ Here are packages that are useful across different Lisp and Scheme implementatio
     :hook ((js2-mode . skewer-mode))
     )
 
+  (use-package web-mode)
+
+
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 #+end_src
 
 ** Emacs Lisp

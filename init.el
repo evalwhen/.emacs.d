@@ -1129,6 +1129,11 @@ _d_: date        ^ ^              ^ ^
   :hook ((js2-mode . skewer-mode))
   )
 
+(use-package web-mode)
+
+
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
 (add-hook 'emacs-lisp-mode-hook #'flycheck-mode)
 
 (use-package helpful
