@@ -735,6 +735,10 @@
 
 (use-package vc-msg)
 
+(use-package evil-nerd-commenter
+  ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
+  )
+
 (use-package rainbow-delimiters
   :hook (gerbil-mode . rainbow-delimiters-mode))
 

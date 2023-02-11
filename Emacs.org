@@ -1089,7 +1089,7 @@ This is an interesting extension to Magit that shows a TODOs section in your git
 
   Emacs' built in commenting functionality =comment-dwim= (usually bound to =M-;=) doesn't always comment things in the way you might expect so we use [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] to provide a more familiar behavior.  I've bound it to =M-/= since other editors sometimes use this binding but you could also replace Emacs' =M-;= binding with this command.
 
-  ,#+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
     (use-package evil-nerd-commenter
       ;; :bind ("M-/" . evilnc-comment-or-uncomment-lines)
