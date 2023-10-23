@@ -1218,7 +1218,7 @@ _d_: date        ^ ^              ^ ^
 
   (let ((tags (locate-dominating-file default-directory "TAGS")))
     (when tags (visit-tags-table tags)))
-  (visit-tags-table "~/Downloads/gerbil-0.16/TAGS")
+  (visit-tags-table "/Users/melp/gerbil/src/TAGS")
 
   (when (package-installed-p 'smartparens)
     (sp-pair "'" nil :actions :rem)
@@ -1243,6 +1243,14 @@ _d_: date        ^ ^              ^ ^
     (switch-to-buffer buf)))
 
 (global-set-key (kbd "C-c C-g") 'gerbil-setup-buffers)
+
+(evil-declare-key 'normal gerbil-mode-map
+    "gb" 'xref-go-back
+    ;; "ds" 'sly-stickers-dwim
+    ;; "dr" 'sly-stickers-replay
+    ;; "dt" 'sly-stickers-toggle-break-on-stickers
+    ;; "df" 'sly-stickers-fetch
+    )
 
 (recentf-mode 1)
 (setq recentf-max-menu-items 10)
