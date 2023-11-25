@@ -208,8 +208,24 @@
 (use-package command-log-mode
   :commands command-log-mode)
 
-(use-package doom-themes
-  :init (load-theme 'doom-solarized-light t))
+;; (use-package doom-themes
+;;   :init (load-theme 'doom-solarized-light t))
+
+(use-package modus-themes
+  :ensure t
+  :config
+  ;; Add all your customizations prior to loading the themes
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil)
+
+  ;; Maybe define some palette overrides, such as by using our presets
+  (setq modus-themes-common-palette-overrides
+        modus-themes-preset-overrides-intense)
+
+  ;; Load the theme of your choice.
+  ;; (load-theme 'modus-operandi)
+
+  (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
 
 ;; (use-package all-the-icons)
 
@@ -1429,3 +1445,23 @@ _d_: date        ^ ^              ^ ^
     (define-key map (kbd "C-s =") 'paredit-reindent-defun)))
 
 (use-package rustic)
+
+(use-package ivy-erlang-complete
+  :ensure t)
+
+(use-package erlang
+  :hook (erlang-mode . lsp-deferred)
+  :hook (after-save . ivy-erlang-complete-reparse)
+  :custom (ivy-erlang-complete-erlang-root "~/.kerl/installs/25.3/lib/")
+  :config (ivy-erlang-complete-init)
+  :mode (("\\.erl?$" . erlang-mode)
+         ("rebar\\.config$" . erlang-mode)
+         ("relx\\.config$" . erlang-mode)
+         ("sys\\.config\\.src$" . erlang-mode)
+         ("sys\\.config$" . erlang-mode)
+         ("\\.config\\.src?$" . erlang-mode)
+         ("\\.config\\.script?$" . erlang-mode)
+         ("\\.hrl?$" . erlang-mode)
+         ("\\.app?$" . erlang-mode)
+         ("\\.app.src?$" . erlang-mode)
+         ("\\Emakefile" . erlang-mode)))
